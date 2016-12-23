@@ -43,7 +43,7 @@ public:
     }
 };
 //至多两次非重复交易
-class Solution {
+class Solution3 {
 public:
     int maxProfit(vector<int>& prices) {
         int len = prices.size();
@@ -108,9 +108,45 @@ public:
 		return ans;
     }
 };
+//k次交易
+class Solution4 {
+public:
+    int maxProfit(int k, vector<int>& prices){
+		int n = prices.size();
+		if(k>=n/2)
+			return quicksolve(prices);
+		int** dp = new int*[k+2];
+		for(int i = 0;i<=k;i++)
+			dp[i] = new int[n+1];
+		for(int i = 0;i<=k;i++)
+		    for(int j = 0;j<=n;j++)
+		        dp[i][j] = 0;
+		for(int i = 1;i<=k;i++)
+		{
+			int tmp = (-1)*prices[0];
+			for(int j = 1;j<n;j++)
+			{
+				dp[i][j] = max(dp[i][j-1],tmp+prices[j]);
+				tmp = max(tmp,dp[i-1][j-1]-prices[j]);
+			}
+		}
+		return dp[k][n-1];
+    }
+	int quicksolve(vector<int>& prices)
+	{
+		int n = prices.size();
+		int pro = 0;
+		for(int i = 1;i<n;i++)
+		{
+			if(prices[i]>prices[i-1])
+				pro+=(prices[i]-prices[i-1]);
+		}
+		return pro;
+	}
+};
 int _tmain(int argc, _TCHAR* argv[])
 {
-	Solution s;
+	Solution4 s;
 	vector<int> nums;
 	nums.push_back(7);
 	nums.push_back(11);
@@ -129,7 +165,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	nums.push_back(4);
 	nums.push_back(9);
 	*/
-	int a = s.maxProfit(nums);
+	int a = s.maxProfit(2,nums);
 	return 0;
 }
 
