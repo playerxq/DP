@@ -2,8 +2,15 @@
 //
 
 #include "stdafx.h"
+#include <cstdio>
 #include <iostream>
+#include <string.h>
+#include <math.h>
 #include <vector>
+#include <queue>
+#include<iomanip>
+#include <ctype.h>
+#include <algorithm>
 using namespace std;
 //一次交易
 class Solution1 {
@@ -144,14 +151,36 @@ public:
 		return pro;
 	}
 };
+//309 with cooldown
+class Solution5 {
+public:
+	int maxProfit(vector<int>& prices) {
+		int n = prices.size();
+		if (n == 0)
+			return 0;
+		int** dp = new int*[n+1];
+		for (int i = 0; i < n; i++)
+			dp[i] = new int[2];
+		dp[0][0] = 0;
+		dp[0][1] = 0;
+		int tmp = -1 * prices[0];
+		for (int i = 1; i < n; i++)
+		{
+			dp[i][0] = max(dp[i-1][0],dp[i-1][1]);
+			dp[i][1] = tmp + prices[i];
+			tmp = max(tmp,dp[i-1][0]-prices[i]);
+		}
+		return max(dp[n - 1][0], dp[n - 1][1]);
+	}
+};
 int _tmain(int argc, _TCHAR* argv[])
 {
-	Solution4 s;
+	Solution5 s;
 	vector<int> nums;
-	nums.push_back(7);
-	nums.push_back(11);
-	nums.push_back(4);
 	nums.push_back(1);
+	nums.push_back(2);
+	nums.push_back(3);
+	nums.push_back(0);
 	nums.push_back(2);
 	/*
 	nums.push_back(8);
@@ -165,7 +194,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	nums.push_back(4);
 	nums.push_back(9);
 	*/
-	int a = s.maxProfit(2,nums);
+	int a = s.maxProfit(nums);
 	return 0;
 }
 
