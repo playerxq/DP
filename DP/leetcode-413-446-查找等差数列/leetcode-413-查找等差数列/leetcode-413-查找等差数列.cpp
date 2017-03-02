@@ -17,7 +17,7 @@
 #include <ctype.h>
 #include <algorithm>
 using namespace std;
-class Solution {
+class Solution1 {
 public:
 	int numberOfArithmeticSlices(vector<int>& A) {
 		int n = A.size();
@@ -38,7 +38,33 @@ public:
 		return sum;
 	}
 };
-
+class Solution {
+public:
+	int numberOfArithmeticSlices(vector<int>& A) {
+		int n = A.size();
+		vector<map<int, int>> dp(n);
+		
+		if (!n)
+			return 0;
+		int res = 0;
+		for (int i = 0; i < n; i++)
+		{
+			for (int j = i - 1; j >= 0; j--)
+			{
+				if ((long)A[i] - (long)A[j]<INT_MIN || (long)A[i] - (long)A[j]>INT_MAX)
+					continue;
+				int diff = A[i] - A[j];
+				dp[i][diff]++;
+				if (dp[j][diff])
+				{
+					dp[i][diff] += dp[j][diff];
+					res += dp[j][diff];
+				}
+			}
+		}
+		return res;
+	}
+};
 int _tmain(int argc, _TCHAR* argv[])
 {
 	vector<int> ve;
