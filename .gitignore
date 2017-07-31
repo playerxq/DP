@@ -94,7 +94,7 @@ ipch/
 stdafx.cpp
 *.vcxproj
 *.filters
-
+*.db
 # Visual Studio profiler
 *.psess
 *.vsp
