@@ -56,13 +56,5 @@ int main()
 {
     freopen("input.txt","r",stdin);
     freopen("output.txt","w",stdout);
-	Solution s;
-	vector<int> ve;
-	ve.push_back(1);
-	ve.push_back(2);
-	ve.push_back(3);
-	ve.push_back(4);
-	ve.push_back(4);
-	s.candy(ve);
 }
 
