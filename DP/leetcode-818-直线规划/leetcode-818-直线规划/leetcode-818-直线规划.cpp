@@ -46,12 +46,15 @@ public:
 				int s2;
 				p2 = cur.first;
 				s2 = (cur.second > 0) ? -1 : 1;
-				if (!vis.count(make_pair(p1, s1)))
-					new_Q.push(make_pair(p1, s1));
-				if (!vis.count(make_pair(p2, s2)))
+				if (abs(p1 - target) < target && !vis.count(make_pair(p1, s1)))
 				{
-					if(s2==1||s2==-1)
-						vis.insert(make_pair(p2, s2));
+					vis.insert(make_pair(p1, s1));
+					new_Q.push(make_pair(p1, s1));
+				}
+				if (abs(p2-target)<target&&!vis.count(make_pair(p2, s2)))
+				{
+					//if(s2==1||s2==-1)
+					vis.insert(make_pair(p2, s2));
 					new_Q.push(make_pair(p2, s2));
 				}
 			}
